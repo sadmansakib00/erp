@@ -9,8 +9,10 @@ import com.brainstation23.erp.persistence.entity.UserEntity;
 import com.brainstation23.erp.persistence.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -23,6 +25,9 @@ public class UserService {
     public static final String USER_NOT_FOUND = "User Not Found";
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public Page<User> getAll(Pageable pageable) {
         var entities = userRepository.findAll(pageable);
@@ -43,7 +48,7 @@ public class UserService {
                 .setEmail(createUserRequest.getEmail())
                 .setAccountBalance(createUserRequest.getAccountBalance())
                 .setRole(createUserRequest.getRole())
-                .setPassword(createUserRequest.getPassword());
+                .setPassword(passwordEncoder.encode(createUserRequest.getPassword()));
         var createdEntity = userRepository.save(entity);
         return createdEntity.getId();
     }
