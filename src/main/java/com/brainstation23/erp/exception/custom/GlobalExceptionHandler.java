@@ -20,12 +20,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(AlreadyExistsException.class)
     public ResponseEntity<Object> handleAlreadyExistsException(AlreadyExistsException alreadyExistsException) {
-        return new ResponseEntity<>(alreadyExistsException.getMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(alreadyExistsException.getMessage(), new HttpHeaders(), HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<Object> handleNotFoundException(NotFoundException notFoundException) {
-        return new ResponseEntity<>(notFoundException.getMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(notFoundException.getMessage(), new HttpHeaders(), HttpStatus.NOT_FOUND);
     }
 
 
