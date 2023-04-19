@@ -8,8 +8,9 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity(name = EntityConstant.USER)
@@ -28,4 +29,12 @@ public class UserEntity {
     private double accountBalance;
     private String role;
     private String password;
+
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+            @JoinTable(
+                    name = "user_role",
+                    joinColumns = {@JoinColumn(name = "user_id")},
+                    inverseJoinColumns = {@JoinColumn(name = "role_id")}
+            )
+    Set<RoleEntity> roles = new HashSet<>();
 }
