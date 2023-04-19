@@ -12,9 +12,9 @@ import java.util.UUID;
 public interface RoleRepository extends JpaRepository<RoleEntity, Integer> {
 
     @Query(
-            value = "SELECT * FROM role WHERE id NOT IN (SELECT role_id FROM user_role WHERE user_id = ?1)",
+            value = "SELECT * FROM roles WHERE id NOT IN (SELECT role_id FROM user_role WHERE user_id = ?1)",
             nativeQuery = true
     )
-    Set<RoleEntity> getUserNotRoles(UUID userId);
+    Set<RoleEntity> getUserNotRoles(String userId);
 
 }

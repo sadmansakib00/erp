@@ -3,6 +3,7 @@ package com.brainstation23.erp.service;
 import com.brainstation23.erp.exception.custom.custom.NotFoundException;
 import com.brainstation23.erp.mapper.RoleMapper;
 import com.brainstation23.erp.model.domain.Role;
+import com.brainstation23.erp.model.domain.User;
 import com.brainstation23.erp.model.dto.CreateRoleRequest;
 import com.brainstation23.erp.persistence.entity.RoleEntity;
 import com.brainstation23.erp.persistence.entity.UserEntity;
@@ -47,6 +48,10 @@ public class RoleService {
         return createdEntity.getId();
     }
 
+    public void deleteOne(Integer id) {
+        roleRepository.deleteById(id);
+    }
+
     public void assignUserRole(UUID userId, Integer roleId) {
         UserEntity user = userRepository.findById(userId).orElse(null);
         RoleEntity role = roleRepository.findById(roleId).orElse(null);
@@ -67,12 +72,14 @@ public class RoleService {
         userRepository.save(user);
     }
 
-    public Set<RoleEntity> getUserRole(UserEntity userEntity) {
+    public Set<RoleEntity> getUserRole(UUID userId) {
+        var userEntity = userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException("USER NOT FOUND"));
         return userEntity.getRoles();
     }
 
-    public Set<RoleEntity> getUserNotRoles(UserEntity user) {
-        return roleRepository.getUserNotRoles(user.getId());
+    public Set<RoleEntity> getUserMissingRoles(UUID userId) {
+        return roleRepository.getUserNotRoles(userId.toString());
     }
 
 }

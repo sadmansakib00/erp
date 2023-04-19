@@ -20,7 +20,6 @@ import javax.persistence.Id;
 @AllArgsConstructor
 public class RoleEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
 }

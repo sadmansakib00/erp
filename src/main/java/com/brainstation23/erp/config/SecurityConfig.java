@@ -38,9 +38,9 @@ public class SecurityConfig {
                                     "/swagger-ui/**",
                                     // other public endpoints
                                     "/h2-console/**",
-                                    "/h2/**",
+                                    "/h2/**"
                                     // make endpoints available
-                                    "/api/**"
+//                                    "/api/**"
                             );
     }
 
@@ -51,11 +51,11 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.DELETE)
                 .hasRole("ADMIN")
-                .antMatchers("/admin/**")
+                .antMatchers("/api/roles/**")
                 .hasAnyRole("ADMIN")
                 .antMatchers("/employee/**")
                 .hasAnyRole("EMPLOYEE", "ADMIN")
-                .antMatchers("/login/**")
+                .antMatchers("/api/**")
                 .anonymous()
                 .anyRequest()
                 .authenticated()
