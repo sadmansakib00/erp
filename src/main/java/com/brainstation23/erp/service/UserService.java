@@ -26,8 +26,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     public Page<User> getAll(Pageable pageable) {
         var entities = userRepository.findAll(pageable);
