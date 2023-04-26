@@ -9,3 +9,8 @@ spring:
 
   h2:
     console.enabled: true
+
+  security:
+    user:
+      name: user
+      password: $2a$10$oHr.wT03vHFfZkCSp3WeWu1DPBtTH2pivt.KqnJJHA3p2CsBfQphi    #pass
